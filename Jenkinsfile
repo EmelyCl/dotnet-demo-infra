@@ -7,9 +7,7 @@ node {
     }
   
     stage('Build') {
-        steps{ 
-            sh 'dotnet restore' 
-            sh 'dotnet build --no-restore'
-        }
+        sh 'dotnet restore' 
+        sh 'dotnet build --no-restore'
     }
 } 
