@@ -12,7 +12,7 @@ node {
     }
         stage('Build') {
             dir('TodoApp') {
-            sh 'docker run --rm -v ${WORKSPACE}:/app -w /app mcr.microsoft.com/dotnet/sdk:10.0 dotnet build TodoApp'
+            sh 'docker run --rm -v ${WORKSPACE}:/app -w /app mcr.microsoft.com/dotnet/sdk:10.0 dotnet build TodoApp/TodoApp.csproj'
         }
     }
 } 
