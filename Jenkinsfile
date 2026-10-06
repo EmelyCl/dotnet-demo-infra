@@ -1,4 +1,10 @@
-node {
+pipeline {
+    agent any //{
+    //     docker {
+    //         image 'mcr.microsoft.com/dotnet/sdk:10.0'
+    //     }
+    // }
+    
     stage('Preparation') {
         catchError(buildResult: 'SUCCESS') {
             sh 'docker stop todoappdb'
@@ -7,7 +13,6 @@ node {
     }
   
     stage('Build') {
-        sh 'dotnet restore' 
-        sh 'dotnet build --no-restore'
+        sh 'docker compose up -d --build'
     }
 } 
