@@ -9,8 +9,9 @@ pipeline {
                 }
             }
             steps {
-                sh 'podman --version'
-                
+             dir('TodoApp') {
+                    sh 'dotnet run'
+                }
             }
         }
     }
