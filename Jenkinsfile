@@ -1,19 +1,16 @@
 pipeline {
-    agent any 
+    agent any
+
     stages {
-        stage('Preparation') {
-            steps {
-                catchError(buildResult: 'SUCCESS') {
-                    sh 'docker stop todoappdb'
-                    sh 'docker rm todoappdb'
+        stage('Build .NET App') {
+            agent {
+                docker {
+                    image 'mcr.microsoft.com/dotnet/sdk:10.0'
                 }
             }
-        }
-    
-        stage('Build') {
-            steps{
-                sh 'docker compose up -d --build'
+            steps {
+                sh 'dotnet --version'
             }
         }
-    } 
+    }
 }
