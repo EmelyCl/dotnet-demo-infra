@@ -9,7 +9,8 @@ pipeline {
                 }
             }
             steps {
-                sh 'dotnet --version'
+                sh 'podman --version'
+                
             }
         }
     }
