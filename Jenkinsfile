@@ -24,10 +24,17 @@ pipeline {
                 }
             }
             steps {
-                sh 'docker compose down'
-                sh 'docker compose up -d --build'
-                sh 'docker compose logs todoappdb'
-                sh 'docker inspect todoappdb --format "{{.State.ExitCode}} {{.State.Error}}" || true'
+                sh '''
+                    cat > docker-compose.jenkins.yml <<'EOF'
+        services:
+            todoapp:
+                ports:
+                    - "8081:8080"
+        EOF
+                '''
+                sh 'docker compose -f docker-compose.yml -f docker-compose.jenkins.yml config -q'
+                sh 'docker compose -f docker-compose.yml -f docker-compose.jenkins.yml down'
+                sh 'docker compose -f docker-compose.yml -f docker-compose.jenkins.yml up -d --build'
             }
         }
     }
