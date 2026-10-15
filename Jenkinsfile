@@ -28,7 +28,7 @@ pipeline {
 cat > docker-compose.jenkins.yml <<'EOF'
 services:
   todoapp:
-    ports:
+    ports: !override
       - "8081:8080"
 EOF
 '''
