@@ -27,6 +27,11 @@ pipeline {
                 sh 'docker compose down'
                 sh 'docker compose up -d --build'
             }
+            post {
+                failure {
+                    sh 'docker compose logs todoappdb'
+                }
+            }
         }
     }
 }
