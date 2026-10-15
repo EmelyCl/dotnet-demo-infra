@@ -24,11 +24,12 @@ pipeline {
                 }
             }
             steps {
-                sh 'docker compose down'
+                sh 'docker compose down -v'
                 sh 'docker compose up -d --build'
             }
             post {
                 failure {
+                    sh 'docker compose ps -a'
                     sh 'docker compose logs todoappdb'
                 }
             }
