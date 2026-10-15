@@ -14,5 +14,9 @@ pipeline {
                 }
             }
         }
+        stage('Deploy'){
+            sh 'docker compose down'
+            sh 'docker compose up -d --build'
+        }
     }
 }
