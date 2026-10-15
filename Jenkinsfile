@@ -24,17 +24,8 @@ pipeline {
                 }
             }
             steps {
-                sh '''
-cat > docker-compose.jenkins.yml <<'EOF'
-services:
-  todoapp:
-    ports: !override
-      - "8081:8080"
-EOF
-'''
-                sh 'docker compose -f docker-compose.yml -f docker-compose.jenkins.yml config -q'
-                sh 'docker compose -f docker-compose.yml -f docker-compose.jenkins.yml down'
-                sh 'docker compose -f docker-compose.yml -f docker-compose.jenkins.yml up -d --build'
+                sh 'docker compose down'
+                sh 'docker compose up -d --build'
             }
         }
     }
