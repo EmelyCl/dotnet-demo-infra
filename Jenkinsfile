@@ -10,7 +10,7 @@ pipeline {
             }
             steps {
              dir('TodoApp') {
-                    sh 'dotnet run'
+                    sh 'dotnet build'
                 }
             }
         }
