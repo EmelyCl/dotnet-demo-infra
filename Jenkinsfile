@@ -26,6 +26,16 @@ pipeline {
             steps {
                 sh 'docker compose down'
                 sh 'docker compose up -d --build'
+                sh '''
+                    until docker compose exec -T todoappdb \
+                        mariadb-admin ping -utodo_usr -pletmeinplz --silent; do
+                        sleep 2
+                    done
+                '''
+
+                sh 'docker compose exec -T todoappdb mariadb -utodo_usr -pletmeinplz todo_db < TodoApp/schema.sql'
+
+                sh 'docker compose restart todoapp'
             }
         }
     }
